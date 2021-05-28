@@ -1,0 +1,26 @@
+version: '3.7'
+services: 
+    eureka-server:
+        image: sameera21/eureka-server:0.1
+        ports:
+            - "8761:8761"
+        restart: always
+        networks:
+            - app-network
+    menuitemservice:
+        image: sameera21/menuitemservice:0.1
+        ports: 
+            - "8080:8080"
+        restart: always
+        environment:
+            EUREKA_HOST: eureka-server
+        depends_on:
+            -  eureka-server
+        networks:
+            - app-network
+    
+ 
+      
+# Networks to be created to facilitate communication between containers
+networks:
+    app-network: 
